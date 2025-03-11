@@ -10,6 +10,8 @@ def is_prime(number: int) -> bool:
         >> is_prime(1):
         False
         >> is_prime(4):
+        False
+        >> is_prime(5):
         True
     """
     raise NotImplementedError
