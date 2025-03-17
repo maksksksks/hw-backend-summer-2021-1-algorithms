@@ -24,3 +24,5 @@ def is_prime(number: int) -> bool:
                 return False
     return True
     raise NotImplementedError
+
+
