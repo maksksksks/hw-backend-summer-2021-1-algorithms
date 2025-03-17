@@ -1,4 +1,5 @@
 from typing import TypeVar, Generic
+from collections import deque
 
 __all__ = ("Node", "Graph")
 
@@ -32,7 +33,27 @@ class Graph:
         self._root = root
 
     def dfs(self) -> list[Node]:
+        result = []
+        stack = [self._root]
+        while len(stack):
+            tmp = stack.pop()
+            if not (tmp in result):
+                result.append(tmp)
+                for t in tmp.outbound[::-1]:
+                    stack.append(t)
+        return result
         raise NotImplementedError
 
     def bfs(self) -> list[Node]:
+        result = []
+        a = deque()
+        a.append(self._root)
+        while len(a):
+            tmp = a.popleft()
+            if not (tmp in result):
+                result.append(tmp)
+                for t in tmp.outbound:
+                    a.append(t)
+
+        return result
         raise NotImplementedError
