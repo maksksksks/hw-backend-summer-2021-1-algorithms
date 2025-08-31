@@ -1,3 +1,4 @@
+from collections import deque
 from typing import TypeVar, Generic
 
 __all__ = ("Node", "Graph")
@@ -32,7 +33,34 @@ class Graph:
         self._root = root
 
     def dfs(self) -> list[Node]:
-        raise NotImplementedError
+        visited = set()
+        order = []
+
+
+        def dfs_visit(node: Node):
+            if node in visited:
+                return
+            visited.add(node)
+            order.append(node)
+            for neighbor in node.outbound:
+                dfs_visit(neighbor)
+
+
+        dfs_visit(self._root)
+        return order
+
 
     def bfs(self) -> list[Node]:
-        raise NotImplementedError
+        visited = set([self._root])
+        order = []
+        queue = deque([self._root])
+
+
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for neighbor in node.outbound:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        return order
